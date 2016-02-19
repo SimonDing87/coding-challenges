@@ -18,10 +18,12 @@
 // 3141 * 5 / 9 * 26 / 5 * 3 - 5 * 8 = 27182
 
 var checkNumber = function(numStr, target) {
+
   var placeOperators = function(numStr) {
     // returns array of all possible equations in string form i.e. '['1+2', '1-2', '1*2', '1/2']'
     numArr = numStr.split('');
     var outputs = [];
+    var operators = ['+', '-', '*', '/'];
     var recurse = function(inputArr, startIndex) {
       for (var i = startIndex; i >= 1; i--) {
         var copy = inputArr.slice();
@@ -37,12 +39,75 @@ var checkNumber = function(numStr, target) {
     return outputs;
   }
 
-  var equations = putOperators(numStr, operators);
+  var equations = placeOperators(numStr);
 
   equations.forEach(function(eq) {
     // TODO: replace eval() with more accurate calculation.
-    if (eval(eq) === target) {
+    var eqArr = equationStringToArray(eq);
+    if (calculateExpression(eqArr) === target) {
       console.log(eq, '=', target);
     };
   })
+}
+
+var equationStringToArray = function(string) {
+  // '3+1-415*92+65358' -> [3, '+', 1, '-', 415, '*', 92, '+', 65358];
+  var output = [];
+  var current = '';
+  for (var i = 0; i < string.length; i++) {
+    if (isNaN(string[i])) {
+      output.push(Number(current));
+      output.push(string[i]);
+      current = '';
+      continue;
+    }
+    current += string[i];
+    if (i === string.length - 1) {
+      output.push(current);
+    }
+  }
+  return output;
+}
+
+var calculateExpression = function(arrayEquation) {
+  // [3, '+', 1, '-', 415, '*', 92, '+', 65358] -> 27182
+
+  var output = arrayEquation.slice();
+  // prevent mutating input array by making a copy
+
+  var multiplyAndDivide = function() {
+    for (var i = 1; i < output.length - 1; i++) {
+      if (output[i] === '*') {
+        output[i] = output[i - 1] * output[i + 1];
+        output.splice(i + 1, 1);
+        output.splice(i - 1, 1);
+        multiplyAndDivide();
+      } else if (output[i] === '/') {
+        output[i] = output[i - 1] / output[i + 1];
+        output.splice(i + 1, 1);
+        output.splice(i - 1, 1);
+        multiplyAndDivide();
+      }
+    }
+  }
+
+  multiplyAndDivide();
+
+  // add and subtract
+  for (var j = 1; j < output.length - 1; j++) {
+    if (output[j] === '+') {
+      output[j] = output[j - 1] + output[j + 1];
+      output.splice(j + 1, 1);
+      output.splice(j - 1, 1);
+      j = 0;
+    }
+    if (output[j] === '-') {
+      output[j] = output[j - 1] - output[j + 1];
+      output.splice(j + 1, 1);
+      output.splice(j - 1, 1);
+      j = 0;
+    }
+
+  }
+  return output[0];
 }
