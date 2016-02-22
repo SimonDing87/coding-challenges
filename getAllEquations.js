@@ -18,7 +18,7 @@
 // 3141 * 5 / 9 * 26 / 5 * 3 - 5 * 8 = 27182
 
 var checkNumber = function(numStr, target) {
-
+  // TODO: find places to optimize.  Currently takes too long for '314159265358'.
   var placeOperators = function(numStr) {
     // returns array of all possible equations in string form i.e. '['1+2', '1-2', '1*2', '1/2']'
     numArr = numStr.split('');
@@ -42,7 +42,6 @@ var checkNumber = function(numStr, target) {
   var equations = placeOperators(numStr);
 
   equations.forEach(function(eq) {
-    // TODO: replace eval() with more accurate calculation.
     var eqArr = equationStringToArray(eq);
     if (calculateExpression(eqArr) === target) {
       console.log(eq, '=', target);
