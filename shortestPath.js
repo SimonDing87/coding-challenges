@@ -48,7 +48,7 @@ Queue.prototype.getLength = function() {
   return this._storage.length;
 }
 
-// shortest path between two nodes
+// shortest path between two nodes using BFS
 function shortest(node1, node2) {
   node1.distance = 0;
   var queue = new Queue();
