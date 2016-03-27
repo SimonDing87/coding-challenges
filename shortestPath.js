@@ -41,7 +41,7 @@ var Queue = function() {
 Queue.prototype.enqueue = function(item) {
   this._storage.push(item);
 }
-Queue.prototype.dequeue = function(item) {
+Queue.prototype.dequeue = function() {
   return this._storage.shift();
 }
 Queue.prototype.getLength = function() {
