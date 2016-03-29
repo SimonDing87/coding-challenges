@@ -49,7 +49,7 @@ Queue.prototype.getLength = function() {
 // shortest path between two nodes
 function shortest(node1, node2) {
   var visited = {};
-  visited[node1.name] = 0;
+  visited[node1.name] = 0; // visitedNode: distance (or lowest BFS layer)
   var queue = new Queue();
 
   // NOTE: can probably refactor check function out
@@ -61,10 +61,12 @@ function shortest(node1, node2) {
     visited[node.name]++;
     node.connections.forEach(function(person) {
       if (visited[person.name] === undefined) {
-        visited[person.name] = Infinity;
+        // if not visited, set distance of that person to current node's BFS layer + 1 since it will be visited on next layer 
+        visited[person.name] = visited[node.name] + 1;
         queue.enqueue(person);
       }
       if (visited[node.name] < visited[person.name]) {
+        // 
         visited[person.name] = visited[node.name];
       }
     })
