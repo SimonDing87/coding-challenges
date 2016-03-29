@@ -10,6 +10,7 @@ var Simon = new personNode('Simon');
 var Amy = new personNode('Amy');
 var Eve = new personNode('Eve');
 var Bob = new personNode('Bob');
+var Andy = new personNode('Andy');
 
 var connect = function(person1, person2) {
   person1.connections.push(person2);
@@ -24,12 +25,14 @@ connect(Eve, Bob);
 connect(Lawrence, Bob);
 connect(Lawrence, Amy);
 connect(Esther, Bob);
+connect(Eve, Andy);
+connect(Lawrence, Andy);
 
-var socialNetwork = [Simon, Esther, Lawrence, Eve, Bob, Amy];
 // Simon <-> Esther <-> Lawrence <-> Amy
-//              | `------. |
-//             Eve <----> Bob 
-
+//              | `----/-. |
+//             Eve <-/--> Bob 
+//              |  /
+//             Andy
 
 // making simple queue data structure for BFS
 var Queue = function() {
@@ -49,7 +52,7 @@ Queue.prototype.getLength = function() {
 // shortest path between two nodes
 function shortest(node1, node2) {
   var visited = {};
-  visited[node1.name] = 0; // visitedNode: distance (or lowest BFS layer)
+  visited[node1.name] = 0;
   var queue = new Queue();
 
   // NOTE: can probably refactor check function out
@@ -61,33 +64,35 @@ function shortest(node1, node2) {
     visited[node.name]++;
     node.connections.forEach(function(person) {
       if (visited[person.name] === undefined) {
-        // if not visited, set distance of that person to current node's BFS layer + 1 since it will be visited on next layer 
         visited[person.name] = visited[node.name] + 1;
         queue.enqueue(person);
       }
       if (visited[node.name] < visited[person.name]) {
-        // 
         visited[person.name] = visited[node.name];
       }
+      
     })
-  }
 
+  }
+  
   queue.enqueue(node1);
   while (queue.getLength()) {
     check(queue.dequeue());
-
   }
   var minDistance = visited[node2.name];
   return minDistance;
 }
 
 // Simon <-> Esther <-> Lawrence <-> Amy
-//              | `------. |
-//             Eve <----> Bob 
-
+//              | `----/-. |
+//             Eve <-/--> Bob 
+//              |  /
+//             Andy
 
 // tests
 console.log(shortest(Simon, Simon) === 0);
 console.log(shortest(Esther, Eve) === 1);
 console.log(shortest(Simon, Bob) === 2);
 console.log(shortest(Eve, Amy) === 3);
+console.log(shortest(Simon, Andy) === 3)
+console.log(shortest(Amy, Andy) === 2)
