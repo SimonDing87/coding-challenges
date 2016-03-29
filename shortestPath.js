@@ -42,14 +42,14 @@ var Queue = function() {
 Queue.prototype.enqueue = function(item) {
   this._storage.push(item);
 }
-Queue.prototype.dequeue = function(item) {
+Queue.prototype.dequeue = function() {
   return this._storage.shift();
 }
 Queue.prototype.getLength = function() {
   return this._storage.length;
 }
 
-// shortest path between two nodes
+// shortest path between two nodes using BFS
 function shortest(node1, node2) {
   var visited = {};
   visited[node1.name] = 0;
