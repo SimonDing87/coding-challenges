@@ -2,8 +2,6 @@
 var personNode = function(name) {
   this.name = name;
   this.connections = [];
-  this.visited = false;
-  this.distance = Infinity;
 }
 
 var Lawrence = new personNode('Lawrence');
@@ -50,43 +48,36 @@ Queue.prototype.getLength = function() {
 
 // shortest path between two nodes
 function shortest(node1, node2) {
-  node1.distance = 0;
+  var visited = {};
+  visited[node1.name] = 0;
   var queue = new Queue();
 
   // NOTE: can probably refactor check function out
   var check = function(node) {
-    node.visited = true;
     if (node.name === node2.name) {
       return;
     }
-    node.distance++;
+    // if not in this BFS layer, increment distance by 1
+    visited[node.name]++;
     node.connections.forEach(function(person) {
-      if (node.distance < person.distance) {
-        person.distance = node.distance;
-      }
-      if (!person.visited) {
+      if (visited[person.name] === undefined) {
+        visited[person.name] = Infinity;
         queue.enqueue(person);
       }
+      if (visited[node.name] < visited[person.name]) {
+        visited[person.name] = visited[node.name];
+      }
     })
-
   }
 
   queue.enqueue(node1);
   while (queue.getLength()) {
     check(queue.dequeue());
+
   }
-  var minDistance = node2.distance;
-  init(socialNetwork);
+  var minDistance = visited[node2.name];
   return minDistance;
 }
-
-// must re-initialize each person's distance to Infinity after each call
-var init = function(network) {
-  network.forEach(function(person) {
-    person.visited = false;
-    person.distance = Infinity;
-  });
-};
 
 // Simon <-> Esther <-> Lawrence <-> Amy
 //              | `------. |
