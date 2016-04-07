@@ -30,22 +30,22 @@ var balanced = function(root) {
 
 // construct the tree
 
-var treeNode = function(value) {
+var TreeNode = function(value) {
   this.value = value;
   this.children = [];
 };
 
-treeNode.prototype.addChildren = function(arr) {
+TreeNode.prototype.addChildren = function(arr) {
   this.children = this.children.concat(arr);
 }
 
-var node1 = new treeNode(1);
-var node2 = new treeNode(2);
-var node3 = new treeNode(3);
-var node4 = new treeNode(4);
-var node5 = new treeNode(5);
-var node6 = new treeNode(6);
-var node7 = new treeNode(7);
+var node1 = new TreeNode(1);
+var node2 = new TreeNode(2);
+var node3 = new TreeNode(3);
+var node4 = new TreeNode(4);
+var node5 = new TreeNode(5);
+var node6 = new TreeNode(6);
+var node7 = new TreeNode(7);
 
 node1.addChildren([node2, node3]);
 node2.addChildren([node4, node5]);

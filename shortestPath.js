@@ -2,7 +2,7 @@
 var personNode = function(name) {
   this.name = name;
   this.connections = [];
-}
+};
 
 var Lawrence = new personNode('Lawrence');
 var Esther = new personNode('Esther');
@@ -15,7 +15,7 @@ var Andy = new personNode('Andy');
 var connect = function(person1, person2) {
   person1.connections.push(person2);
   person2.connections.push(person1);
-}
+};
 
 // constructing social network graph
 connect(Simon, Esther);
@@ -41,13 +41,13 @@ var Queue = function() {
 
 Queue.prototype.enqueue = function(item) {
   this._storage.push(item);
-}
+};
 Queue.prototype.dequeue = function() {
   return this._storage.shift();
-}
+};
 Queue.prototype.getLength = function() {
   return this._storage.length;
-}
+};
 
 // shortest path between two nodes using BFS
 function shortest(node1, node2) {
@@ -71,9 +71,9 @@ function shortest(node1, node2) {
         visited[person.name] = visited[node.name];
       }
       
-    })
+    });
 
-  }
+  };
   
   queue.enqueue(node1);
   while (queue.getLength()) {
@@ -94,5 +94,5 @@ console.log(shortest(Simon, Simon) === 0);
 console.log(shortest(Esther, Eve) === 1);
 console.log(shortest(Simon, Bob) === 2);
 console.log(shortest(Eve, Amy) === 3);
-console.log(shortest(Simon, Andy) === 3)
-console.log(shortest(Amy, Andy) === 2)
+console.log(shortest(Simon, Andy) === 3);
+console.log(shortest(Amy, Andy) === 2);
