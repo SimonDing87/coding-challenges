@@ -28,6 +28,8 @@ var balanced = function(root) {
   return Math.abs(max - min) <= 1;
 }
 
+// construct the tree
+
 var treeNode = function(value) {
   this.value = value;
   this.children = [];
@@ -56,3 +58,23 @@ node3.addChildren([node6, node7]);
 
 //tests
 console.log(balanced(node1) === true);
+
+// better solution, assuming the tree is a binary tree
+
+var maxDepth = function(rootNode) {
+  if (rootNode === null) {
+    return 0;
+  }
+  return 1 + Math.max(rootNode.left, rootNode.right);
+}
+
+var minDepth = function(rootNode) {
+  if (rootNode === null) {
+    return 0;
+  }
+    return 1 + Math.min(rootNode.left, rootNode.right);
+
+}
+var balancedBinary = function(rootNode) {
+  return Math.abs(maxDepth(rootNode) - minDepth(rootNode)) <= 1;
+}
