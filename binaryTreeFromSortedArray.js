@@ -20,14 +20,22 @@ var treeFromArray = function(sortedArray) {
     var midIndex = Math.floor(array.length / 2); // right favored mid
     var mid = array[midIndex];
     currentNode.value = mid;
-    currentNode.left = new binaryNode(null);
-    currentNode.right = new binaryNode(null);
+    
+    
 
     var leftArray = array.slice(0, midIndex);
     var rightArray = array.slice(midIndex + 1);
 
-    recurse(leftArray, currentNode.left)
-    recurse(rightArray, currentNode.right)
+    if (leftArray.length !== 0) {
+      currentNode.left = new binaryNode(null);
+      recurse(leftArray, currentNode.left);
+    }
+
+    if (rightArray.length !== 0) {
+      currentNode.right = new binaryNode(null);
+      recurse(rightArray, currentNode.right);
+    }
+    
 
   };
 
@@ -50,3 +58,4 @@ console.log(tree.value === 4);
 console.log(tree.right.left.value === 5);
 console.log(tree.right.value === 6);
 console.log(tree.right.right.value === 7);
+console.log(tree.right.right.right === null);
