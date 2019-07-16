@@ -15,7 +15,8 @@ function dictionaryWords(str, dict) {
 			startIndex = i;
 		}
 	}
-	return arr;
+
+	return arr.length === 0 ? null : arr;
 }
 
 var dict = {
@@ -33,5 +34,5 @@ var dict = {
 var str1 = "thequickbrownfox";
 var str2 = "bedbathandbeyond";
 
-console.log(dictionaryWords(str1, dict));
+console.log(dictionaryWords("", dict));
 console.log(dictionaryWords(str2, dict));
