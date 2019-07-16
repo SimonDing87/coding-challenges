@@ -13,8 +13,6 @@ function dictionaryWords(str, dict) {
 		if (dict[currentSubstring]) {
 			arr.push(currentSubstring);
 			startIndex = i;
-		} else {
-			currentSubstring += currentSubstring[i];
 		}
 	}
 	return arr;
@@ -35,4 +33,5 @@ var dict = {
 var str1 = "thequickbrownfox";
 var str2 = "bedbathandbeyond";
 
+console.log(dictionaryWords(str1, dict));
 console.log(dictionaryWords(str2, dict));
