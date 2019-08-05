@@ -18,5 +18,5 @@ function runLengthEncoding(str) {
 	return strArr.join("");
 }
 
-console.log(runLengthEncoding("AAAABBBCCDAA"));
-console.log(runLengthEncoding("aaAAAaaBBbbaaaDDddCcCCC"));
+console.log(runLengthEncoding("AAAABBBCCDAA") === "4A3B2C1D2A");
+console.log(runLengthEncoding("aaAAAaaBBbbaaaDDddCcCCC") === "2a3A2a2B2b3a2D2d1C1c3C");
