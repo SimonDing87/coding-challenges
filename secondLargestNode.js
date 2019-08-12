@@ -3,7 +3,7 @@
 // Given the root to a binary search tree, find the second largest node in the tree.
 
 // define node structure
-class Node {
+function Node(value, left, right) {
     this.value = value;
     this.left = left;
     this.right = right;
