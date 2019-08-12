@@ -4,11 +4,10 @@
 
 // define node structure
 class Node {
-    constructor(value, left, right) {
-        this.value = value;
-        this.left = left;
-        this.right = right;
-    }
+    this.value = value;
+    this.left = left;
+    this.right = right;
+
 }
 
 // test tree 2
