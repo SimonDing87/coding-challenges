@@ -10,14 +10,15 @@
 function lowestMissingPositiveInteger(arr) {
     // with sorting
 
-    // sort
-    arr = arr.sort(function(a, b) { return a - b })
 
     // remove negative and 0 numbers
     arr = arr.filter(function(int) { return int > 0 })
 
     // remove duplicates
     arr = Array.from(new Set(arr));
+
+    // sort
+    arr = arr.sort(function(a, b) { return a - b })
 
     for (var i = 0; i < arr.length; i++) {
         if (arr[i] !== i + 1) {
